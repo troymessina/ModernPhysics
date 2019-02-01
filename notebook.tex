@@ -1,0 +1,898 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+	\def\TeX{\mbox{T\kern-.14em\lower.5ex\hbox{E}\kern-.115em X}}
+	\def\LaTeX{\mbox{L\kern-.325em\raise.21em\hbox{$\scriptstyle{A}$}\kern-.17em}\TeX}
+
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW5-Interference}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Homework 5 - Interference of
+Light}\label{homework-5---interference-of-light}
+
+I'm going to use a Jupyter notebook to solve the homework so you can see
+the utility of the Python notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} setup by importing some good modules}
+        \PY{k+kn}{import} \PY{n+nn}{sympy} \PY{k}{as} \PY{n+nn}{sp}
+        \PY{c+c1}{\PYZsh{} All calls to sympy require sp. at the beginning}
+        \PY{c+c1}{\PYZsh{} One could use \PYZdq{}from sympy import *\PYZdq{}, but then it\PYZsq{}s difficult to know what is sympy}
+        \PY{c+c1}{\PYZsh{} and what is another module when importing multiple modules.}
+        \PY{c+c1}{\PYZsh{} print things all pretty}
+        \PY{k+kn}{from} \PY{n+nn}{sympy}\PY{n+nn}{.}\PY{n+nn}{abc} \PY{k}{import} \PY{o}{*}
+        \PY{n}{sp}\PY{o}{.}\PY{n}{init\PYZus{}printing}\PY{p}{(}\PY{n}{use\PYZus{}latex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mathjax}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{1. Define these terms in your own words and write a sentence
+for each term explaining how a light source with this property assists
+in observing interference and diffraction. Are they necessary for
+observing interference and
+diffraction?}\label{define-these-terms-in-your-own-words-and-write-a-sentence-for-each-term-explaining-how-a-light-source-with-this-property-assists-in-observing-interference-and-diffraction.-are-they-necessary-for-observing-interference-and-diffraction}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Monochromatic - consisting of one color. This relates to a light
+  source emitting a single wavelength of light. This would be useful in
+  observing interference and diffraction because it simplifies the
+  resulting pattern to having a single set of maxima and minima related
+  to the one wavelength. Multiple wavelengths can overlap or otherwise
+  make it more difficult to see the patterns.
+\item
+  Coherent - all waves having the same phase. When waves have the same
+  phase, they intefere in the same predictable way with one another when
+  passing through slit(s). Non-coherent light would have more
+  complicated patterns due to phase differences of light entering the
+  slit(s).
+\item
+  Uniaxial - light traveling along a single direction. Lasers are a good
+  example. They have a beam that travels uniaxially. Most light sources
+  are more isotropic or multiaxial. It is more difficult to direct light
+  through a slit or set of slits when it is going in all directions. It
+  is also difficult to eliminate the "noise" of light that does not pass
+  through slit(s) when it is not uniaxial.
+\end{enumerate}
+
+None of these properties are required for observing interference and
+diffraction.
+
+\paragraph{2. Your humble professor wants to perform a lecture
+demonstration of the classic Young's double-slit experiment. As a light
+source, he uses the 632.8-nm light from a He--Ne laser. The interference
+pattern will be projected on a wall that is 3.0 m from the slits. For
+easy viewing by all students in the class, he wants the distance between
+the m=0 and m=1 maxima to be 25 cm. What slit separation is required in
+order to produce the desired interference
+pattern?}\label{your-humble-professor-wants-to-perform-a-lecture-demonstration-of-the-classic-youngs-double-slit-experiment.-as-a-light-source-he-uses-the-632.8-nm-light-from-a-hene-laser.-the-interference-pattern-will-be-projected-on-a-wall-that-is-3.0-m-from-the-slits.-for-easy-viewing-by-all-students-in-the-class-he-wants-the-distance-between-the-m0-and-m1-maxima-to-be-25-cm.-what-slit-separation-is-required-in-order-to-produce-the-desired-interference-pattern}
+
+We are looking for \(\theta_1\) in the image below. The image is
+actually incorrect. The angle should be made where the spot is on the
+screen, not at the maximum amplitude of the pattern away from the
+screen. The small angle approximation will work since
+\(\frac{0.25}{3} = 0.083\) radians. This is about 6 degrees.
+\[\begin{equation}
+d \sin\theta = m\lambda\\
+\\
+d \frac{y}{L} = m\lambda\\
+\\
+d = \frac{1 \left(632.8\times10^{-9}\right)\left(3\right)}{0.25}\\
+\\
+d = 7.6\times10^{-6} \rm{m}
+\end{equation}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s graph the pattern as a function of theta}
+         \PY{c+c1}{\PYZsh{}Create your constants}
+         \PY{n}{wl} \PY{o}{=} \PY{l+m+mf}{632.8e\PYZhy{}9} \PY{c+c1}{\PYZsh{}variable for wavelength}
+         \PY{n}{D} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{wl} \PY{c+c1}{\PYZsh{}variable for slit width}
+         \PY{n}{dd} \PY{o}{=} \PY{l+m+mf}{2.53e\PYZhy{}6}
+         \PY{n}{L} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{}variable for screen distance from slit}
+         \PY{c+c1}{\PYZsh{}Define x and I as real\PYZhy{}valued symbols}
+         \PY{n}{x}\PY{p}{,} \PY{n}{I}\PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x, I}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Define I for real \PYZhy{}\PYZhy{} making x be in degrees}
+         \PY{n}{I} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{/}\PY{l+m+mi}{180}\PY{p}{)}\PY{o}{/}\PY{n}{wl}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{180}\PY{p}{)}\PY{o}{/}\PY{n}{wl}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{sp}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{dd}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{180}\PY{p}{)}\PY{o}{/}\PY{n}{wl}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{I} \PY{c+c1}{\PYZsh{} This causes it to output formatted nicely. The print command formats it as computer code}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}70}]:}
+    
+    $$\frac{0.25 \cos^{2}{\left (3.99810366624526 \pi \sin{\left (\frac{\pi x}{180} \right )} \right )}}{\pi^{2} \sin^{2}{\left (\frac{\pi x}{180} \right )}} \sin^{2}{\left (2.0 \pi \sin{\left (\frac{\pi x}{180} \right )} \right )}$$
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{I}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{)}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{theta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} <sympy.plotting.plot.Plot at 0x7fdf2c902240>
+\end{Verbatim}
+            
+    \paragraph{3. Light is described as monochromatic if it is composed of a
+single wavelength. A laser emits monochromatic light. Imagine that such
+a monochromatic source of light that passes through two narrow slits and
+forms an interference pattern on a screen. (a) If the wavelength of
+light used increases, will the distance between the maxima (1) increase,
+(2) remain the same, or (3) decrease? Explain. (b) If the slit
+separation is 0.25 mm, the screen is 1.5 m away from the slits, and
+light of wavelength 550 nm is used, what is the distance from the center
+of the central maximum to the center of the third-order maximum? (c)
+What if the wavelength of light is 680
+nm?}\label{light-is-described-as-monochromatic-if-it-is-composed-of-a-single-wavelength.-a-laser-emits-monochromatic-light.-imagine-that-such-a-monochromatic-source-of-light-that-passes-through-two-narrow-slits-and-forms-an-interference-pattern-on-a-screen.-a-if-the-wavelength-of-light-used-increases-will-the-distance-between-the-maxima-1-increase-2-remain-the-same-or-3-decrease-explain.-b-if-the-slit-separation-is-0.25-mm-the-screen-is-1.5-m-away-from-the-slits-and-light-of-wavelength-550-nm-is-used-what-is-the-distance-from-the-center-of-the-central-maximum-to-the-center-of-the-third-order-maximum-c-what-if-the-wavelength-of-light-is-680-nm}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\item
+  Since the constructive interference condition is
+  \(d \sin\theta = m\lambda\), the angle will increase with wavelength,
+  assuming \(d\) is constant. This is because \(\sin\) is increasing
+  over the range of 0 to 90 degrees where these maxima occur. This means
+  the spacing increases for the maxima.
+\item
+  \[d\begin{equation}
+  \sin\theta = m\lambda\\
+  0.25\times10^{-3} \sin\theta = 3\left(550\times10^{-9}\right)\\
+  \sin\theta = 6.6\times10^{-3}\\
+  \sin\theta \approx \frac{y}{L}\\
+  \frac{y}{L} \approx 6.6\times10^{-3}\\
+  y\approx 6.6\times10^{-3}\left(1.5\right)\\
+  y\approx 0.00099 = 9.9 \rm{mm}
+  \end{equation}\]
+\end{enumerate}
+
+(c)\[d\begin{equation}
+\sin\theta = m\lambda\\
+0.25\times10^{-3} \sin\theta = 3\left(680\times10^{-9}\right)\\
+\sin\theta = 8.16\times10^{-3}\\
+\sin\theta \approx \frac{y}{L}\\
+\frac{y}{L} \approx 8.16\times10^{-3}\\
+y\approx 8.16\times10^{-3}\left(1.5\right)\\
+y\approx 0.01224 = 1.224 \rm{cm}
+\end{equation}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s graph the pattern as a function of theta}
+        \PY{c+c1}{\PYZsh{}Create your constants}
+        \PY{n}{wl1} \PY{o}{=} \PY{l+m+mf}{550e\PYZhy{}9} \PY{c+c1}{\PYZsh{}variable for wavelength}
+        \PY{n}{wl2} \PY{o}{=} \PY{l+m+mf}{680e\PYZhy{}9}
+        \PY{n}{D} \PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{wl1} \PY{c+c1}{\PYZsh{}variable for slit width}
+        \PY{n}{dd} \PY{o}{=} \PY{l+m+mf}{0.25E\PYZhy{}3}
+        \PY{n}{L} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{c+c1}{\PYZsh{}variable for screen distance from slit}
+        \PY{c+c1}{\PYZsh{}Define x and I as real\PYZhy{}valued symbols}
+        \PY{n}{x}\PY{p}{,} \PY{n}{I1}\PY{p}{,} \PY{n}{I2}\PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x, I1, I2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Define I for real \PYZhy{}\PYZhy{} making x be in degrees}
+        \PY{n}{I1} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl1}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{sp}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{dd}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{I2} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{sp}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{dd}\PY{o}{*}\PY{n}{x}\PY{o}{/}\PY{p}{(}\PY{n}{L}\PY{o}{*}\PY{n}{wl2}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{p} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{I1}\PY{p}{,} \PY{n}{I2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.015}\PY{p}{,}\PY{l+m+mf}{0.015}\PY{p}{)}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x (m)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{550 nm}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{680 nm}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see the third order maximum for the green 550 nm is very close to
+0.01 m, while the red 680 nm third order maximum is between 0.01 and
+0.015 m.
+
+    \paragraph{4. The double-slit experiment was performed originally by
+Thomas Young in 1801. However, at the time lasers did not exist and
+light that was used was not monochromatic. Imagine recreating Young's
+classic double-slit experiment with the light from a blue LED (also not
+available in 1801) with a wavelength 480 nm (a bluish color). It is then
+found that it gives a second-order maximum at a certain location on the
+screen. What wavelengths of visible light would have a minimum at the
+same location? Assume visible light is 350 nm to 900
+nm.}\label{the-double-slit-experiment-was-performed-originally-by-thomas-young-in-1801.-however-at-the-time-lasers-did-not-exist-and-light-that-was-used-was-not-monochromatic.-imagine-recreating-youngs-classic-double-slit-experiment-with-the-light-from-a-blue-led-also-not-available-in-1801-with-a-wavelength-480-nm-a-bluish-color.-it-is-then-found-that-it-gives-a-second-order-maximum-at-a-certain-location-on-the-screen.-what-wavelengths-of-visible-light-would-have-a-minimum-at-the-same-location-assume-visible-light-is-350-nm-to-900-nm.}
+
+We're looking for the second order maximum location of 480 nm light.
+\[d\sin\theta=m\lambda\] where \(m=2\) and \(\lambda=480\times10^{-9}\)
+m. We get the relationship \[d\sin\theta=9.6\times10^{-7}\] For these
+maxima, \(d\) is the same for all wavelengths. The question is what
+wavelengths between 350 and 900 nm will give \(9.6\times10^{-7}\) when
+multiplied by a half-integer \(m+1/2\)?
+
+\[\left(m+\frac{1}{2}\right)\lambda = 9.6\times10^{-7}\]
+
+If \(m=1\), we get
+\(\lambda = 9.6\times10^{-7}/1.5 = 6.40\times10^{-7} = 640\) nm. This is
+red.
+
+If \(m=2\), we get
+\(\lambda = 4.8\times10^{-7}/2.5 = 3.84\times10^{-7} = 384\) nm. This is
+blue.
+
+If \(m=3\), we get
+\(\lambda = 3.2\times10^{-7}/3.5 = 2.74\times10^{-7} = 274\) nm. This is
+outside the range.
+
+We can also look to see which wavelengths have a maximum at the same
+location as our 2nd order maximum of 480 nm.
+
+\[m\lambda = 9.6\times10^{-7}\]
+
+If \(m=1\), we get
+\(\lambda = 9.6\times10^{-7}/1 = 9.60\times10^{-7} = 960\) nm. This is
+outside the visible range.
+
+If \(m=2\), we get
+\(\lambda = 9.6\times10^{-7}/2 = 4.80\times10^{-7} = 480\) nm. This is
+our LED.
+
+If \(m=3\), we get
+\(\lambda = 9.6\times10^{-7}/3 = 3.2\times10^{-7} = 320\) nm. This is
+outside the visible range.
+
+So, we see that using 480 nm light is a good idea because there are no
+other visible wavelengths that might affect our measurement.
+
+    \paragraph{5. If you double the width of a single slit, the amplitude of
+the light passing through the slit is doubled. (a) Show, however, that
+the intensity at the center of the screen increases by a factor of 4.
+(b) Explain why this does not violate conservation of
+energy.}\label{if-you-double-the-width-of-a-single-slit-the-amplitude-of-the-light-passing-through-the-slit-is-doubled.-a-show-however-that-the-intensity-at-the-center-of-the-screen-increases-by-a-factor-of-4.-b-explain-why-this-does-not-violate-conservation-of-energy.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  The amplitude of light is related to the electric field, and the
+  intensity is related to the electric field squared.
+\end{enumerate}
+
+\[E(x, t) = E_{\circ} \sin\left(kx-\omega t\right)\]
+
+\[I(x, t) = E_{\circ}^2 \sin^2\left(kx-\omega t\right)\]
+
+This means a particular point on the diffraction pattern has an
+intensity related to \(E_{\circ}^2\). If the amplitude is doubled
+because twice as many light rays go through, the intensity will be the
+square of double the amplitude.
+
+\[E_{\circ} \to 2E_{\circ}\]
+\[I \to \left(2E_{\circ}\right)^2 = 4E_{\circ}^2\]
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Four times the intensity arrives at the screen when the slit has
+  double the width. Recall that intensity is Watts per meter squared
+  \(\left(W/m^2 = Joules/s/m^2\right)\). This means the energy is four
+  times as much during any interval of time in any of the constructive
+  maxima peaks. It seems that we have violated conservation of energy
+  because we allowed double the energy to enter the slit, and four times
+  the energy shows up on the screen. Even though four times as much
+  intensity shows up, the width of the pattern changes with the slit
+  width.
+\end{enumerate}
+
+\[I \approx I_{\circ}\left[\frac{sin\left(\frac{\pi D y}{L\lambda}\right)}{\frac{\pi D y}{L\lambda}}\right]^2\]
+
+This shows that the intensity pattern is inversely proportional to
+\(D\). As \(D\) increases by a factor of two, the intensity pattern
+decreases in area by a factor of two. Let's take a look quantitatively.
+I'll create two intensity patterns with the relative slit widths being a
+factor of two different.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Define x and intensities as real\PYZhy{}valued symbols}
+        \PY{n}{x}\PY{p}{,} \PY{n}{Idiffract1}\PY{p}{,} \PY{n}{Idiffract2}\PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x, Idiffract1, Idiffract2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{real} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Define small angle intensity due to diffraction}
+        \PY{c+c1}{\PYZsh{} Some variables wl1, L, and D were defined above}
+        \PY{c+c1}{\PYZsh{} If Eo = 1, then (2Eo)\PYZca{}2=4. I can always find a scale where this is true.}
+        \PY{n}{Idiffract1} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{wl1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{wl1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{Idiffract2} \PY{o}{=} \PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{wl1}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{D}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n}{wl1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        
+        \PY{n}{p2} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Idiffract1}\PY{p}{,} \PY{n}{Idiffract2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.3}\PY{p}{,}\PY{l+m+mf}{0.3}\PY{p}{)}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{theta\PYZdl{} (rad)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2D}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{p2}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    I know that the condition for a diffraction minimum is
+\[D \sin\theta = m\lambda\] For the example graphed above, I used a slit
+of \(D=5\lambda\) and \(\lambda=550\) nm
+\[\theta_D = \sin^{-1}\left[\frac{1\left(550\times10^{-9}\right)}{5\times550\times10^{-9}}\right] = \sin^{-1}\left(\frac{1}{5}\right) = 0.201~\rm{rad} \]
+
+The wider slit is \(2D\)
+\[\theta_{2D} = \sin^{-1}\left[\frac{1\left(550\times10^{-9}\right)}{10\times550\times10^{-9}}\right] = \sin^{-1}\left(\frac{1}{10}\right) = 0.100~\rm{rad} \]
+
+So, it's pretty obvious that the width is half, but what about the
+integral to get the total intensity over the central peak?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{integrate}\PY{p}{(}\PY{n}{Idiffract1}\PY{p}{,}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.201}\PY{p}{,}\PY{l+m+mf}{0.201}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}74}]:}
+    
+    $$\frac{0.04}{\pi^{2}} \int_{-0.201}^{0.201} \frac{1}{\sin^{2}{\left (x \right )}} \sin^{2}{\left (5.0 \pi \sin{\left (x \right )} \right )}\, dx$$
+
+    
+
+    The Sympy \texttt{integrate} function formats the integral, but it's
+unable to compute it. There is another SymPy function called
+\texttt{Integral().evalf()} that will numerically compute the integral.
+Let's see what we get.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{Integral}\PY{p}{(}\PY{n}{Idiffract1}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.201}\PY{p}{,}\PY{l+m+mf}{0.201}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}66}]:}
+    
+    $$0.18$$
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{Integral}\PY{p}{(}\PY{n}{Idiffract2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.100}\PY{p}{,}\PY{l+m+mf}{0.100}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{evalf}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}67}]:}
+    
+    $$0.36$$
+
+    
+
+    Aha! The integral of the slit with width \(2D\) has a value that is
+twice the integral of the \(D\) slit. That is what we expect since we
+allow twice the amount of light through.
+
+    \paragraph{6. You may have noticed during the experiment in the lab that
+the maxima of a single-slit diffraction pattern are not equally spaced.
+(a) By differentiating the light
+intensity}\label{you-may-have-noticed-during-the-experiment-in-the-lab-that-the-maxima-of-a-single-slit-diffraction-pattern-are-not-equally-spaced.-a-by-differentiating-the-light-intensity}
+
+\[ I = I_o \left[\frac{\sin\left(\beta/2\right)}{\beta/2}\right]^2\]
+
+\paragraph{\texorpdfstring{with respect to \(\beta\) show that the
+secondary maxima occur when \(\beta/2\) satisfies the relation
+\(\tan\left(\beta/2\right)=\beta/2\). (b) Carefully and precisely plot
+(using maple or some other plotting software) the curves \(y=\beta/2\)
+and \(y=tan\left(\beta/s\right)\). From their intersections, determine
+the values of \(\beta\) for the first and second secondary maxima. What
+is the percent difference from \(\beta/2=(m+1/2)\pi\)
+?}{with respect to \textbackslash{}beta show that the secondary maxima occur when \textbackslash{}beta/2 satisfies the relation \textbackslash{}tan\textbackslash{}left(\textbackslash{}beta/2\textbackslash{}right)=\textbackslash{}beta/2. (b) Carefully and precisely plot (using maple or some other plotting software) the curves y=\textbackslash{}beta/2 and y=tan\textbackslash{}left(\textbackslash{}beta/s\textbackslash{}right). From their intersections, determine the values of \textbackslash{}beta for the first and second secondary maxima. What is the percent difference from \textbackslash{}beta/2=(m+1/2)\textbackslash{}pi ?}}\label{with-respect-to-beta-show-that-the-secondary-maxima-occur-when-beta2-satisfies-the-relation-tanleftbeta2rightbeta2.-b-carefully-and-precisely-plot-using-maple-or-some-other-plotting-software-the-curves-ybeta2-and-ytanleftbetasright.-from-their-intersections-determine-the-values-of-beta-for-the-first-and-second-secondary-maxima.-what-is-the-percent-difference-from-beta2m12pi}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  The derivative will be to differentiate the square. Then, chain rule
+  the inside function of \(\beta\).
+\end{enumerate}
+
+\[\begin{equation}
+\frac{dI}{d\beta} = 2I_o\left[\frac{\sin\left(\beta/2\right)}{\beta/2}\right] \cdot \left[\frac{\frac{1}{2}\cos\left(\beta/2\right)}{\beta/2}-\frac{2\sin\left(\beta/2\right)}{\left(\beta\right)^2}\right]
+\\
+\\
+\frac{dI}{d\beta} = 2I_o\left[\frac{\sin\left(\beta/2\right)}{\beta/2}\right] \cdot \left[\frac{\cos\left(\beta/2\right)}{\beta}-\frac{2\sin\left(\beta/2\right)}{\left(\beta\right)^2}\right]
+\end{equation}\]
+
+The maxima and minima correspond to the zeros of the derivative. The
+derivative can be zero when the first term is zero.
+\[\left[\frac{\sin\left(\beta/2\right)}{\beta/2}\right]=0\] This will
+occur when \(\beta = 2m\pi\) or \(\beta/2\) is an integer multiple of
+\(\pi\). It will also be zero when \(\beta=\infty\). All of these values
+are minima. See graph below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First Term of Derivative}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} <sympy.plotting.plot.Plot at 0x7fc940488198>
+\end{Verbatim}
+            
+    This means that the other term gives the maxima.
+\[\frac{\cos\left(\beta/2\right)}{\beta}-\frac{2\sin\left(\beta/2\right)}{\left(\beta\right)^2} = 0\]
+Simplifying this we get \[\begin{equation}
+\frac{\cos\left(\beta/2\right)}{\beta}=\frac{2\sin\left(\beta/2\right)}{\left(\beta\right)^2}\\
+\\
+\frac{\beta}{2} = \frac{\sin\left(\beta/2\right)}{\cos\left(\beta/2\right)}\\
+\\
+\frac{\beta}{2} = \tan\left(\beta/2\right)
+\end{equation}\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{num6plot} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{tan}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{num6plot}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{num6plot}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tan(\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2)}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{num6plot}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{num6plot}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{num6plot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There's a crossing at \(\beta=0\). We expected that since that is the
+central maximum. Let's zoom in on the two crossings around \(\beta=9\)
+and \(\beta =15\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{num6plotz1} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{tan}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mf}{8.98}\PY{p}{,}\PY{l+m+mf}{8.995}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{4.4}\PY{p}{,}\PY{l+m+mf}{4.55}\PY{p}{)}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{num6plotz1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tan(\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2)}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz1}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{num6plotz2} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{tan}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{x}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mf}{15.43}\PY{p}{,}\PY{l+m+mf}{15.47}\PY{p}{)}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{7.7}\PY{p}{,}\PY{l+m+mf}{7.75}\PY{p}{)}\PY{p}{,} \PY{n}{show}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{legend}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{num6plotz2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tan(\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2)}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{line\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{beta\PYZdl{}/2}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{num6plotz2}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It appears the first maximum is when \(\beta=8.987\) radians, and the
+second maximum is when \(\beta=15.451\) radians. We expect
+\(\frac{\beta}{2}=\left(m+\frac{1}{2}\right)\pi\). We should get the
+first three maxima at \(m = 1\) and \(m = 2\).
+
+\[\beta = \left(2m+1\right)\pi\]
+
+\[\beta = 3\pi = 9.425~\rm{rad}\]
+
+\[\beta = 5\pi = 15.71~\rm{rad}\]
+
+The percent errors from being evenly spaced maxima are
+
+\[\frac{\Delta\beta}{\beta_1} = \frac{9.425-8.987}{9.425} = 0.046 = 4.6\%\]
+
+\[\frac{\Delta\beta}{\beta_2} = \frac{15.71-15.451}{15.71} = 0.016 = 1.6\%\]
+
+    \paragraph{\texorpdfstring{7. A diffraction grating is an optical
+component with a periodic structure, which splits and diffracts light
+into several beams travelling in different directions. The CD grooves
+act as a diffraction grating and break down the light into component
+wavelengths. Imagine a CD that is designed to have the second-order
+maxima at \(9.5^{\circ}\) from the central maximum for the red end
+(\(\lambda=675\) nm) of the visible spectrum. How many lines per
+centimeter does the grating
+have?}{7. A diffraction grating is an optical component with a periodic structure, which splits and diffracts light into several beams travelling in different directions. The CD grooves act as a diffraction grating and break down the light into component wavelengths. Imagine a CD that is designed to have the second-order maxima at 9.5\^{}\{\textbackslash{}circ\} from the central maximum for the red end (\textbackslash{}lambda=675 nm) of the visible spectrum. How many lines per centimeter does the grating have?}}\label{a-diffraction-grating-is-an-optical-component-with-a-periodic-structure-which-splits-and-diffracts-light-into-several-beams-travelling-in-different-directions.-the-cd-grooves-act-as-a-diffraction-grating-and-break-down-the-light-into-component-wavelengths.-imagine-a-cd-that-is-designed-to-have-the-second-order-maxima-at-9.5circ-from-the-central-maximum-for-the-red-end-lambda675-nm-of-the-visible-spectrum.-how-many-lines-per-centimeter-does-the-grating-have}
+
+\[\begin{equation}
+d \sin\theta = m \lambda \\
+\\
+d = \frac{2\left(675\times{-9}\right)}{\sin9.5^{\circ}} \\
+\\
+d = 8.18\times10^{-6} \rm{m}\\
+\end{equation}
+\]
+
+    \paragraph{\texorpdfstring{8. When multiple wavelengths are reflected by
+a diffraction gratings, the different diffraction order can start
+overlapping. It is found that the violet (\(\lambda=4.00\times 10^2\)
+nm) portion of the third-order maximum overlaps the yellow-orange
+(\(\lambda=6.00\times10^2\) nm) portion of the second-order maximum when
+the gratings spacing is \(1.2\times10^5\) lines per cm. Show that this
+would be the case for a diffraction grating, regardless of the grating's
+spacing.}{8. When multiple wavelengths are reflected by a diffraction gratings, the different diffraction order can start overlapping. It is found that the violet (\textbackslash{}lambda=4.00\textbackslash{}times 10\^{}2 nm) portion of the third-order maximum overlaps the yellow-orange (\textbackslash{}lambda=6.00\textbackslash{}times10\^{}2 nm) portion of the second-order maximum when the gratings spacing is 1.2\textbackslash{}times10\^{}5 lines per cm. Show that this would be the case for a diffraction grating, regardless of the grating's spacing.}}\label{when-multiple-wavelengths-are-reflected-by-a-diffraction-gratings-the-different-diffraction-order-can-start-overlapping.-it-is-found-that-the-violet-lambda4.00times-102-nm-portion-of-the-third-order-maximum-overlaps-the-yellow-orange-lambda6.00times102-nm-portion-of-the-second-order-maximum-when-the-gratings-spacing-is-1.2times105-lines-per-cm.-show-that-this-would-be-the-case-for-a-diffraction-grating-regardless-of-the-gratings-spacing.}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+Using the diffraction equation \[d \sin\theta = m\lambda\] we can plug
+in \(m = 2\) for \(\lambda=6.00\times10^{-9}\) m to get
+\[m\lambda = 1.2\times10^{-8} \rm{m}\] Similarly, plugging in \(m = 3\)
+for \(\lambda=4.00\times10^{-9}\) m to get
+\[m\lambda = 1.2\times10^{-8} \rm{m}\] This means \(d\sin\theta\) has
+the same constructive condition no matter what \(d\) is used (as long as
+it is the same for both wavelengths).
+
+    \paragraph{\texorpdfstring{9. Potassium chloride (KCl) has a set of
+crystal planes separated by a distance \(d=0.31\) nm (1/2 of what is
+shown as ``\(a\)'' in the figure below). At what angle \(\theta\) to
+these planes would the first-order Bragg maximum occur? Assume the
+x-rays are from the \(K\alpha\) line of copper with a wavelength of
+\(\lambda=1.5406\)
+Angstrom.}{9. Potassium chloride (KCl) has a set of crystal planes separated by a distance d=0.31 nm (1/2 of what is shown as ``a'' in the figure below). At what angle \textbackslash{}theta to these planes would the first-order Bragg maximum occur? Assume the x-rays are from the K\textbackslash{}alpha line of copper with a wavelength of \textbackslash{}lambda=1.5406 Angstrom.}}\label{potassium-chloride-kcl-has-a-set-of-crystal-planes-separated-by-a-distance-d0.31-nm-12-of-what-is-shown-as-a-in-the-figure-below.-at-what-angle-theta-to-these-planes-would-the-first-order-bragg-maximum-occur-assume-the-x-rays-are-from-the-kalpha-line-of-copper-with-a-wavelength-of-lambda1.5406-angstrom.}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+This is an interference problem dealing with reflection from parallel
+planes of atoms. Therefore, we use Bragg's Law.
+
+\[\begin{equation}
+2 d\sin\theta = m\lambda\\
+\\
+2\left(0.31\times10^{-9}\right)\sin\theta=1\left(1.5406\times10^{-10}\right)\\
+\\
+\sin\theta = 0.24848\\
+\\
+\theta = \sin^{-1}\left(0.24848\right)\\
+\\
+\theta = 14.39^{\circ}
+\end{equation}\]
+
+I have some x-ray diffraction data taken with our spectrometer. Let's
+take a look.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/nbuser/library/KCl\PYZhy{}XRD.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{sheetname}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{parse\PYZus{}cols} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B:C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}sp.plot(df[\PYZsq{}Intensity\PYZsq{}],df[\PYZsq{}theta\PYZsq{}])}
+         \PY{n}{angle}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{theta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{Intense}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{angle}\PY{p}{,} \PY{n}{Intense}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intensity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{theta\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} Text(0.5,0,'\$\textbackslash{}\textbackslash{}theta\$')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Bonus 1: Two narrow slits are separated by 0.48 mm. The slits
+are illuminated with a monochromatic light. The pattern of interference
+on the screen ( 5.0 m away from the slit) is shown in the figure below.
+It shows the intensity of the light on the y-axis and the distance from
+the central maximum on the screen on the x-axis. (a) What would be the
+maximum intensity of the light falling on the screen if only one slit
+were open? (b) Find the wavelength of the light based on the diffraction
+pattern
+below.}\label{bonus-1-two-narrow-slits-are-separated-by-0.48-mm.-the-slits-are-illuminated-with-a-monochromatic-light.-the-pattern-of-interference-on-the-screen-5.0-m-away-from-the-slit-is-shown-in-the-figure-below.-it-shows-the-intensity-of-the-light-on-the-y-axis-and-the-distance-from-the-central-maximum-on-the-screen-on-the-x-axis.-a-what-would-be-the-maximum-intensity-of-the-light-falling-on-the-screen-if-only-one-slit-were-open-b-find-the-wavelength-of-the-light-based-on-the-diffraction-pattern-below.}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+    \paragraph{\texorpdfstring{Bonus 2: Let's recreate Young's double slit
+experiment with a monochromatic light of wavelength \(\lambda\) of 500
+nm. The two thin slits are 0.1 mm apart. You would like to study the
+effect of a filter on one of the slit. The filter dims the light
+intensity through the slit by a factor of two compared to the other
+slit. Determine the intensity \(I\) as a function of angular position
+\(\theta\) on the
+screen.}{Bonus 2: Let's recreate Young's double slit experiment with a monochromatic light of wavelength \textbackslash{}lambda of 500 nm. The two thin slits are 0.1 mm apart. You would like to study the effect of a filter on one of the slit. The filter dims the light intensity through the slit by a factor of two compared to the other slit. Determine the intensity I as a function of angular position \textbackslash{}theta on the screen.}}\label{bonus-2-lets-recreate-youngs-double-slit-experiment-with-a-monochromatic-light-of-wavelength-lambda-of-500-nm.-the-two-thin-slits-are-0.1-mm-apart.-you-would-like-to-study-the-effect-of-a-filter-on-one-of-the-slit.-the-filter-dims-the-light-intensity-through-the-slit-by-a-factor-of-two-compared-to-the-other-slit.-determine-the-intensity-i-as-a-function-of-angular-position-theta-on-the-screen.}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
